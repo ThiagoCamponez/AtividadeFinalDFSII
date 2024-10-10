@@ -1,0 +1,43 @@
+
+
+main {
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.articles-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dois artigos por linha */
+    gap: 20px; /* Espaçamento entre os artigos */
+}
+
+article {
+    background-color: #f8f8f8;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+article h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+article p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+article a {
+    color: #6800a8;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+article a:hover {
+    text-decoration: underline;
+}
+
