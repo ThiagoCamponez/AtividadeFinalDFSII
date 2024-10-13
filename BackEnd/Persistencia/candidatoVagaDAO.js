@@ -79,7 +79,7 @@ export default class CandidatoVagaDAO {
                    INNER JOIN Candidato c ON cv.cand_cpf = c.cand_cpf
                    INNER JOIN Vaga v ON cv.vaga_codigo = v.vaga_codigo
                    WHERE cv.cand_cpf = ? OR cv.vaga_codigo = ?
-                   ORDER BY cv.data_inscricao`;
+                   ORDER BY c.cand_nome`;
             parametros = [termoBusca, termoBusca];
         } else {
             sql = `SELECT cv.cand_cpf, c.cand_nome, c.cand_endereco, c.cand_telefone, 
@@ -88,7 +88,7 @@ export default class CandidatoVagaDAO {
                    FROM Candidato_Vaga cv
                    INNER JOIN Candidato c ON cv.cand_cpf = c.cand_cpf
                    INNER JOIN Vaga v ON cv.vaga_codigo = v.vaga_codigo
-                   ORDER BY cv.data_inscricao`;
+                   ORDER BY c.cand_nome`;
         }
     
         const [registros] = await conexao.execute(sql, parametros);

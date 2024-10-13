@@ -21,6 +21,7 @@ export default function TelaInscricao(props) {
             if (resposta.status) {
                 setListaDeInscricoes(resposta.listaInscricoes);
             }
+            setAtualizarTela(false); 
         }).catch((erro) => {
             alert("Erro ao enviar a requisição: " + erro.message);
         });

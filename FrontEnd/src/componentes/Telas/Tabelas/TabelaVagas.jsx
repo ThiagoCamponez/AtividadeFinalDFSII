@@ -1,5 +1,5 @@
 import { Button, Container, Table } from "react-bootstrap";
-import { excluir } from "../../../servicos/vagaService"; 
+import { excluir } from "../../../servicos/vagaService";
 import { ContextoUsuarioLogado } from "../../../App";
 import { useContext } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -14,15 +14,15 @@ export default function TabelaVagas(props) {
                 props.setAtualizarTela(true);
                 alert(resposta.mensagem);
             }).catch((erro) => {
-                alert(erro.message); 
+                alert(erro.message);
             });
         }
     }
 
     function alterarVaga(vaga) {
-        props.setVagaSelecionada(vaga); 
-        props.setModoEdicao(true);      
-        props.setExibirTabela(false);  
+        props.setVagaSelecionada(vaga);
+        props.setModoEdicao(true);
+        props.setExibirTabela(false);
     }
 
     return (
@@ -46,21 +46,26 @@ export default function TabelaVagas(props) {
                                     <tr key={vaga.codigo}>
                                         <td>{vaga.codigo}</td>
                                         <td>{vaga.cargo}</td>
-                                        <td>{vaga.salario}</td>
+                                        <td>
+                                            {new Intl.NumberFormat('pt-BR', {
+                                                style: 'currency',
+                                                currency: 'BRL',
+                                            }).format(vaga.salario)}
+                                        </td>
                                         <td>{vaga.cidade}</td>
                                         <td>{vaga.quantidade}</td>
                                         <td>
-                                        <Button 
-                                                variant="warning" 
-                                                className="me-2" 
+                                            <Button
+                                                variant="warning"
+                                                className="me-2"
                                                 style={{ backgroundColor: '#5c25ca', borderColor: '#5c25ca', color: 'white' }}
                                                 onClick={() => {
                                                     alterarVaga(vaga);
                                                 }}>
                                                 <FaEdit />
                                             </Button>
-                                            <Button 
-                                                variant="danger" 
+                                            <Button
+                                                variant="danger"
                                                 onClick={() => {
                                                     excluirVaga(vaga);
                                                 }}>

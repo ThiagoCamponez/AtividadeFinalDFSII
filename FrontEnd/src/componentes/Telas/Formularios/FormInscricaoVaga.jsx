@@ -1,8 +1,9 @@
 import { Button, FloatingLabel, Container, Row, Col, Form } from 'react-bootstrap';
 import { useState, useContext, useEffect } from 'react';
 import { ContextoUsuarioLogado } from '../../../App';
-import { gravarVaga, alterarVaga } from '../../../servicos/vagaService';  
-import {FaPlus, FaSave, FaTimes} from 'react-icons/fa';
+import { gravarVaga, alterarVaga } from '../../../servicos/vagaService';
+import { FaPlus, FaSave, FaTimes } from 'react-icons/fa';
+import { NumericFormat } from 'react-number-format';
 
 export default function FormCadastroVaga(props) {
 
@@ -15,7 +16,7 @@ export default function FormCadastroVaga(props) {
         vaga_quantidade: ""
     });
     const [validado, setValidado] = useState(false);
-    
+
     useEffect(() => {
         if (props.modoEdicao && props.vagaSelecionada) {
             const vagaSelecionada = {
@@ -25,7 +26,7 @@ export default function FormCadastroVaga(props) {
                 vaga_cidade: props.vagaSelecionada.cidade,
                 vaga_quantidade: props.vagaSelecionada.quantidade
             };
-            setVaga(vagaSelecionada); 
+            setVaga(vagaSelecionada);
         }
     }, [props.modoEdicao, props.vagaSelecionada]);
 
@@ -54,7 +55,7 @@ export default function FormCadastroVaga(props) {
                 alterarVaga(vaga, token).then((resposta) => {
                     alert("Vaga atualizada com sucesso!");
                     props.setModoEdicao(false);
-                    props.setVagaSelecionada({ vaga_codigo:"", vaga_cargo: "", vaga_salario: "", vaga_cidade: "", vaga_quantidade: "" });
+                    props.setVagaSelecionada({ vaga_codigo: "", vaga_cargo: "", vaga_salario: "", vaga_cidade: "", vaga_quantidade: "" });
                     props.setExibirTabela(true);
                 }).catch((erro) => {
                     alert(erro.message);
@@ -87,14 +88,22 @@ export default function FormCadastroVaga(props) {
                     </Col>
                     <Col md="6">
                         <FloatingLabel controlId="vaga_salario" label="Salário" className="mb-3">
-                            <Form.Control
+                            <NumericFormat
+                                className="form-control"
                                 required
-                                type="number"
                                 name="vaga_salario"
                                 value={vaga.vaga_salario}
-                                onChange={manipularMudanca}
-                                placeholder="Ex: 5000.00"
-                                step="0.01"
+                                onValueChange={(values) => {
+                                    const { value } = values;
+                                    manipularMudanca({ target: { name: "vaga_salario", value } });
+                                }}
+                                placeholder="Ex: 1.000,00"
+                                thousandSeparator="."
+                                decimalSeparator=","
+                                prefix="R$ "
+                                decimalScale={2}
+                                fixedDecimalScale={true}
+                                allowNegative={false}
                             />
                             <Form.Control.Feedback type="invalid">Por favor, informe o salário da vaga!</Form.Control.Feedback>
                         </FloatingLabel>
@@ -133,12 +142,12 @@ export default function FormCadastroVaga(props) {
                 <Row className="d-flex flex-column align-items-center justify-content-center mt-2 mb-2">
                     <Col md={4} className="d-flex align-items-center justify-content-center">
                         <Button type="submit" className="w-100 me-5" style={{ backgroundColor: '#6800a8', borderColor: '#6800a8' }}>
-                        <FaSave className="me-2"/>
+                            <FaSave className="me-2" />
                             {props.modoEdicao ? "Alterar" : "Gravar"}
                         </Button>
 
-                        <Button className="w-100" variant="secondary" onClick={() => {props.setExibirTabela(true);}} >
-                        <FaTimes className="me-2"/>
+                        <Button className="w-100" variant="secondary" onClick={() => { props.setExibirTabela(true); }} >
+                            <FaTimes className="me-2" />
                             Cancelar
                         </Button>
                     </Col>

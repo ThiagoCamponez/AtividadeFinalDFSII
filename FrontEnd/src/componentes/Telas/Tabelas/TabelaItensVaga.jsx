@@ -10,6 +10,7 @@ export default function TabelaItensVaga(props) {
                 <tr>
                     <th>Código da Vaga</th>
                     <th>Descrição da Vaga</th>
+                    <th>Cidade da Vaga</th>
                     <th className="text-center">Excluir</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@ export default function TabelaItensVaga(props) {
                         return <tr key={indice}>
                             <td>{item.codigo}</td>
                             <td>{item.cargo}</td>
+                            <td>{item.cidade}</td>
                             <td className="text-center">
                                 <Button  onClick={()=>{
                                     const lista = props.listaItens.filter((proj) => proj.codigo !== item.codigo); 

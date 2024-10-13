@@ -69,7 +69,7 @@ export default class VagaDAO {
         if (!isNaN(parseInt(termo))) {
             const sql = `SELECT vaga_codigo, vaga_cargo, vaga_salario, vaga_cidade, vaga_quantidade
                          FROM vaga WHERE vaga_codigo = ?
-                         ORDER BY vaga_cargo`;
+                        ORDER BY vaga_codigo`;
             const parametros = [termo];
             const [registros] = await conexao.execute(sql, parametros);
             global.poolConexoes.releaseConnection(conexao);
@@ -83,7 +83,7 @@ export default class VagaDAO {
         } else {
             const sql = `SELECT vaga_codigo, vaga_cargo, vaga_salario, vaga_cidade, vaga_quantidade
                          FROM vaga WHERE vaga_cargo LIKE ?
-                         ORDER BY vaga_cargo`;
+                         ORDER BY vaga_codigo`;
             const parametros = ['%' + termo + '%'];
             const [registros] = await conexao.execute(sql, parametros);
             

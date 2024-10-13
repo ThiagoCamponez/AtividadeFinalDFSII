@@ -35,7 +35,7 @@ export default class CandidatoDAO {
 
     async consultar(termo) {
         const conexao = await conectar();
-        const sql = "SELECT * FROM Candidato WHERE cand_nome LIKE ?";
+        const sql = "SELECT * FROM Candidato WHERE cand_nome LIKE ? ORDER BY cand_nome";
         const valores = ['%' + termo + '%'];
         const [rows] = await conexao.query(sql, valores);
         global.poolConexoes.releaseConnection(conexao);

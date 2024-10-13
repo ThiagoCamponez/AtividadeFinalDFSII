@@ -39,7 +39,8 @@ export default function FormCadInscricao(props) {
             const token = contextoUsuario.usuarioLogado.token;
 
             // Formata a data e o horário
-            const dataFormatada = new Date().toLocaleDateString('pt-BR'); // DD/MM/YYYY
+            const dataFormatada = new Date().toISOString().substring(0, 10); // YYYY-MM-DD
+
             const horarioFormatado = horaInscricao; // Horário atual no formato correto
 
             // Monta o objeto de inscrição
@@ -157,6 +158,7 @@ export default function FormCadInscricao(props) {
                                                 vagas: [...inscricao.vagas, {
                                                     "codigo": vagaSelecionada.codigo,
                                                     "cargo": vagaSelecionada.cargo,
+                                                    "cidade": vagaSelecionada.cidade,
                                                 }]
                                             });
                                         }
@@ -168,7 +170,7 @@ export default function FormCadInscricao(props) {
                             </Col>
                             {vagaSelecionada?.codigo && (
                             <Row className="mb-2 mt-3">
-                                <Col md={6}>
+                                <Col md={4}>
                                     <FloatingLabel controlId="codigoVaga" label="Código da Vaga">
                                         <Form.Control 
                                             type="text" 
@@ -176,12 +178,20 @@ export default function FormCadInscricao(props) {
                                             value={vagaSelecionada?.codigo || ""}/>
                                     </FloatingLabel>
                                 </Col>
-                                <Col md={6}>
+                                <Col md={4}>
                                     <FloatingLabel controlId="vagaSelecionada" label="Vaga Selecionada">
                                         <Form.Control 
                                             type="text" 
                                             disabled 
                                             value={vagaSelecionada?.cargo || ""}/>
+                                    </FloatingLabel>
+                                </Col>
+                                <Col md={4}>
+                                    <FloatingLabel controlId="vagaSelecionada" label="Cidade da Vaga">
+                                        <Form.Control 
+                                            type="text" 
+                                            disabled 
+                                            value={vagaSelecionada?.cidade || ""}/>
                                     </FloatingLabel>
                                 </Col>
                             </Row>
